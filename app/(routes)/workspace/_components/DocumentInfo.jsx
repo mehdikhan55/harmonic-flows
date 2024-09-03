@@ -27,7 +27,6 @@ function DocumentInfo({params}) {
 
         if(docSnap.exists())
         {
-            console.log(docSnap.data())
             setDocumentInfo(docSnap.data())
             setEmoji(docSnap.data()?.emoji);
             docSnap.data()?.coverImage&&setCoverImage(docSnap.data()?.coverImage)
@@ -61,6 +60,7 @@ function DocumentInfo({params}) {
                     </div>
                 </div>
         </CoverPicker>
+
         {/* Emoji Picker  */}
         <div className='absolute ml-10 px-20 mt-[-40px] cursor-pointer'>
             <EmojiPickerComponent 
@@ -73,6 +73,7 @@ function DocumentInfo({params}) {
             </div>
             </EmojiPickerComponent>
         </div>
+        
         {/* File Name  */}
         <div className='mt-10 px-20 ml-10 p-10'>
             <input type="text" 

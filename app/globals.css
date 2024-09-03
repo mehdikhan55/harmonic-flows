@@ -102,3 +102,8 @@ h6.ce-header{
     @apply bg-background text-foreground;
   }
 }
+
+
+.codex-editor__redactor{
+  padding-bottom: 0px !important;
+}

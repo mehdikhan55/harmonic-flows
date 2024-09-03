@@ -9,26 +9,28 @@ function Header() {
   const { orgId } = useAuth();
   const { user } = useUser();
 
-  useEffect(()=>{
-    user&&saveUserData();
-  },[user])
+  useEffect(() => {
+    user && saveUserData();
+  }, [user])
 
   /**
    * Used to save user data
    */
   const saveUserData = async () => {
-     const docId = user?.primaryEmailAddress?.emailAddress
+    const docId = user?.primaryEmailAddress?.emailAddress
     try {
-      await setDoc(doc(db, 'LoopUsers', docId), {
+      await setDoc(doc(db, 'UserProfiles', docId), {
         name: user?.fullName,
         avatar: user?.imageUrl,
         email: user?.primaryEmailAddress?.emailAddress
       })
+      console.log('User profile saved successfully'); 
     }
     catch (e) {
-
+      console.log('Error occured while saving user profile:', e)
     }
   }
+
   return (
     <div className='flex justify-between items-center p-3
     shadow-sm'>

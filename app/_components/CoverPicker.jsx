@@ -20,7 +20,7 @@ function CoverPicker({children,setNewCover}) {
   const [selectedCover,setSelectedCover]=useState();
   return (
     <Dialog>
-    <DialogTrigger className='w-full'>
+    <DialogTrigger className='w-full'> 
         {children}
     </DialogTrigger>
     <DialogContent>

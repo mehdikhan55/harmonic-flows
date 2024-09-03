@@ -11,7 +11,7 @@ function DocumentEditorSection({ params }) {
   const [openComment, setOpenComment] = useState(false);
   return (
     <div className='relative'>
-      {/* Header  */}
+      {/* Header  */} 
       <DcoumentHeader />
 
       {/* Document Info  */}

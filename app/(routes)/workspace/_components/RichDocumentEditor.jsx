@@ -16,6 +16,7 @@ import { db } from '@/config/firebaseConfig';
 import { useUser } from '@clerk/nextjs';
 import Paragraph from '@editorjs/paragraph';
 import GenerateAITemplate from './GenerateAITemplate';
+import { Asterisk } from 'lucide-react';
 
 
 function RichDocumentEditor({ params }) {
@@ -33,9 +34,11 @@ function RichDocumentEditor({ params }) {
   /**
    * Used to save Document
    */
-  const SaveDocument = () => {
+  const SaveDocument =  (editor) => {
     console.log("UPDATE")
-    ref.current.save().then(async (outputData) => {
+    editor.save().then(async (outputData) => {
+      console.log('Data has changed:')
+      console.log(outputData)
       const docRef = doc(db, 'documentOutput', params?.documentid);
      
       await updateDoc(docRef, {
@@ -58,8 +61,7 @@ function RichDocumentEditor({ params }) {
     if (!editor?.current) {
       editor = new EditorJS({
         onChange: (api, event) => {
-           SaveDocument()
-          //ref.current.save().then(async (outputData) => {console.log(outputData)})
+           SaveDocument(editor)
         },
         onReady:()=>{
           GetDocumentOutput()
@@ -112,9 +114,21 @@ function RichDocumentEditor({ params }) {
   }
   return (
     <div className=' '>
-      <div id='editorjs' className='w-[70%]'></div>
+      <div id='editorjs' className='w-[70%] pb-20 md:pb-24'></div>
       <div className='fixed bottom-10 md:ml-80 left-0 z-10'>
-        <GenerateAITemplate setGenerateAIOutput={(output)=>editor?.render(output)} />
+        <GenerateAITemplate setGenerateAIOutput={(output)=>{
+          //clear the previous data from editor first but first check if there is any thing in editor if yes only then clear and if the editor is empty already thenn dont clear
+          let outputData=editor?.save();
+          if(outputData?.blocks?.length >0){
+            console.log('clearing')
+            editor?.clear();
+          }
+          console.log('now rendering')
+          //render the new data
+          editor?.render(output);
+          //save
+          SaveDocument(editor)
+          }} />
       </div>
     </div>
   )
