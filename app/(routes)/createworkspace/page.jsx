@@ -22,6 +22,7 @@ function CreateWorkspace() {
     const [loading,setLoading]=useState(false);
     const router=useRouter();
 
+
     /**
      * Used to create new workspace and save data in database
      */
@@ -94,7 +95,7 @@ function CreateWorkspace() {
                     <Button disabled={!workspaceName?.length||loading} 
                     onClick={OnCreateWorkspace}
                     >Create {loading&&<Loader2Icon className='animate-spin ml-2' />} </Button>
-                    <Button variant="outline">Cancel</Button>
+                    <Button onClick={()=>router.back()} variant="outline">Cancel</Button>
 
                 </div>
             </div>
